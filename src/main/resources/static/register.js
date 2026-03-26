@@ -1,9 +1,8 @@
-function login() {
+function register() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
-
-    fetch("/login", {
+    fetch("/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -25,6 +24,6 @@ function login() {
         });
 }
 
-function goToRegister() {
-    window.location.href = "register.html";
+function goToLogin() {
+    window.location.href = "login.html";
 }

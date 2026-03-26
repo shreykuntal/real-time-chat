@@ -1,12 +1,12 @@
-const username = localStorage.getItem("username");
-if (!username || username.trim() === "") {
+const jwtToken = localStorage.getItem("jwtToken");
+if (!jwtToken || jwtToken.trim() === "") {
     // Redirect to login page
     window.location.href = "login.html";
 }
 const messageBox = document.getElementById("messageBox");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
-const socket = new WebSocket("ws://192.168.29.23:8080/ws/chat");
+const socket = new WebSocket("ws://10.81.50.242:8080/ws/chat?token="+jwtToken);
 
 sendBtn.addEventListener("click", sendMessage);
 document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -17,7 +17,8 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
     }
 
     // Remove username from localStorage
-    localStorage.removeItem("username");
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("username")
 
     // Redirect to login page
     window.location.replace("login.html");
@@ -25,29 +26,23 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 // send message to server
 function sendMessage(){
 
-    const username = localStorage.getItem("username");
     const input = document.getElementById("messageInput");
 
     const message = input.value;
 
     if(message.trim() === "") return;
 
-    const data = {
-        username: username,
-        message: message
-    };
-
-    socket.send(JSON.stringify(data));
+    socket.send(message);
 
     input.value = "";
 }
 
 // display message in window
-function displayMessage(user,msg){
+function displayMessage(msg){
 
     const div=document.createElement("div");
     div.className="message";
-    div.textContent=user + ": " + msg;
+    div.textContent=msg;
 
     messageBox.appendChild(div);
 
@@ -55,6 +50,6 @@ function displayMessage(user,msg){
 }
 
 socket.onmessage = function(event) {
-    const msg = JSON.parse(event.data);
-    displayMessage(msg.username, msg.message);
+    const msg = event.data;
+    displayMessage(msg);
 };
