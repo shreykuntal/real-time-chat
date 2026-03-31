@@ -37,3 +37,24 @@ body{
 #sendBtn{
     padding:8px 15px;
 }
+
+select {
+    padding: 5px;
+    font-size: 14px;
+}
+
+#topBar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.dropdown-group {
+    display: flex;
+    flex-direction: column; /* 🔥 THIS puts text above select */
+}
+
+h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}

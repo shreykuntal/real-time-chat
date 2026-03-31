@@ -1,3 +1,6 @@
+if (localStorage.getItem("jwtToken") !== null){
+    window.location.href = "chat.html";
+}
 function register() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;

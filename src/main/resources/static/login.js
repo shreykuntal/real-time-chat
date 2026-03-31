@@ -1,3 +1,6 @@
+if (localStorage.getItem("jwtToken") !== null){
+    window.location.href = "chat.html";
+}
 function login() {
 
     let username = document.getElementById("username").value;
